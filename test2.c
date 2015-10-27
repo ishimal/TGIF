@@ -3,9 +3,8 @@
 //gib
 
 FILE *fp1,*fp2;
-double point[7600][37000];
-double afterDeterminPoints[7600][37000];
-
+double **point,*base_point;
+//double afterDeterminPoints[7600][37000];
 
 typedef struct
 {
@@ -41,12 +40,19 @@ void errorDraw(errorPoint errorPoints[],int k){
 }
 
 int main(void){
+	int n = 7600, m = 37000;
 	int i,j,k=0,ret,x,y;
 	double tmpx=0,tmpy=0;
 	double z=0;
 	errorPoint errorPoints[10000];
 	errorPoint ePoint;
 
+	point = malloc(sizeof(double *)*n);
+	base_point= malloc(sizeof(double *)*n*m);
+	for (i = 0; i < n; i++) {
+		point[i] = base_point + i*m;
+
+	}
 	for(i=0;i<7600;i++){
 		for(j=0;j<37000;j++){
 			point[i][j] = -1;
@@ -78,7 +84,6 @@ int main(void){
 	initialize();
 	draw();
 	errorDraw(errorPoints,k);
-
 	fclose(fp1);
 	fclose(fp2);
 	return 0;
