@@ -8,8 +8,8 @@
 
 /* Begin PBXFileReference section */
 		0A3299311BD6091D00C9527A /* test2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = test2.c; sourceTree = "<group>"; };
-		0A3EB1A01BDF4FE3003FC95D /* 53394610_dsm_1m.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = 53394610_dsm_1m.dat; sourceTree = "<group>"; };
-		0A3EB1A11BDF4FE3003FC95D /* 53394640_dsm_1m.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = 53394640_dsm_1m.dat; sourceTree = "<group>"; };
+		0AF995A91BDF51C400ACF48E /* 53394610_dsm_1m.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = 53394610_dsm_1m.dat; sourceTree = "<group>"; };
+		0AF995AA1BDF51C400ACF48E /* 53394640_dsm_1m.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = 53394640_dsm_1m.dat; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -17,8 +17,8 @@
 			isa = PBXGroup;
 			children = (
 				0A3299311BD6091D00C9527A /* test2.c */,
-				0A3EB1A01BDF4FE3003FC95D /* 53394610_dsm_1m.dat */,
-				0A3EB1A11BDF4FE3003FC95D /* 53394640_dsm_1m.dat */,
+				0AF995A91BDF51C400ACF48E /* 53394610_dsm_1m.dat */,
+				0AF995AA1BDF51C400ACF48E /* 53394640_dsm_1m.dat */,
 			);
 			sourceTree = "<group>";
 		};
