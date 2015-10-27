@@ -12,6 +12,7 @@ typedef struct
 	double y;
 }errorPoint;
 
+//test
 void initialize(){
 	fprintf(fp2,"#VRML V2.0 utf8\nNavigationInfo {\n\ttype [ \"EXAMINE\", \"ANY\" ]\n}\n\n");
 }
