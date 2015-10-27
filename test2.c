@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+//gib
 
 FILE *fp1,*fp2;
 double point[7600][37000];
@@ -12,6 +13,7 @@ typedef struct
 	double y;
 }errorPoint;
 
+//test
 void initialize(){
 	fprintf(fp2,"#VRML V2.0 utf8\nNavigationInfo {\n\ttype [ \"EXAMINE\", \"ANY\" ]\n}\n\n");
 }
