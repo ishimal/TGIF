@@ -1,9 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
-//gib
 
 FILE *fp1,*fp2;
 double **point,*base_point;
+int n = 7600, m = 37000;
+int map1MinX = 0;
 //double afterDeterminPoints[7600][37000];
 
 typedef struct
@@ -12,7 +13,7 @@ typedef struct
 	double y;
 }errorPoint;
 
-//test
+
 void initialize(){
 	fprintf(fp2,"#VRML V2.0 utf8\nNavigationInfo {\n\ttype [ \"EXAMINE\", \"ANY\" ]\n}\n\n");
 }
@@ -40,7 +41,6 @@ void errorDraw(errorPoint errorPoints[],int k){
 }
 
 int main(void){
-	int n = 7600, m = 37000;
 	int i,j,k=0,ret,x,y;
 	double tmpx=0,tmpy=0;
 	double z=0;
@@ -87,6 +87,4 @@ int main(void){
 	fclose(fp1);
 	fclose(fp2);
 	return 0;
-} //aaaa
-
-//bbbbbbb
+}
