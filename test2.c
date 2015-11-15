@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<stdlib.h>
 //gib
@@ -68,7 +69,7 @@ int main(void){
 		exit(-1);
 	}
 
-	while((ret = fscanf(fp1,"%lf %lf %lf",&tmpx,&tmpy,&z))!=EOF){
+	while((ret = fscanf("%lf %lf %lf",&tmpx,&tmpy,&z))!=EOF){
 		x = tmpx * -1;
 		y = tmpy * -1;
 		point[x][y] = z;
