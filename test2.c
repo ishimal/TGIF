@@ -1,10 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
-int n = 2000, m = 2000;
+int n = 2000, m = 2000; //nがx,mがyの配列の最大
 FILE *fpIn1,*fpIn2,*fpOut;
 double point[2000][2000];
 int map1MinX=0,map1MinY=0;
-//double afterDeterminPoints[7600][37000];
+int borderArray[2000][2000] //(境界なら1,そうでなければ0,点データがない場合は-1を格納する配列でグローバルにおく)
 
 typedef struct
 {
@@ -59,7 +59,71 @@ void inputPoints(void){
     }
 }
 
-
+void errorRestore(void){
+    int i,j,s,t,cnt1,cnt2,sum=0;
+    double avg;
+    for(j=0;j<n;j++){
+        for(i=0;i<m;i++){
+            if(point[i][j]<-1000){
+                sum=0;
+                cnt=0;
+                if(point[i-1][j-1]!<-1000){/*エラー点で弾かれなかったやつは配列aに入れる*/
+                    sum+=point[i-1][j-1];
+                    cnt1++;
+                }
+                if(point[i-1][j]!<-1000){
+                    sum+=point[i-1][j];
+                    cnt1++;
+                }
+                if(point[i-1][j+1]!<-1000){
+                    sum+=point[i-1][j+1];
+                    cnt1++;
+                }
+                if(point[i][j-1]!<-1000){
+                    sum+=point[i][j-1];
+                    cnt1++;
+                }
+                if(point[i][j+1]!<-1000){
+                    sum+=point[i][j+1];
+                    cnt1++;
+                }
+                if(point[i+1][j-1]!<-1000){
+                    sum+=point[i+1][j-1];
+                    cnt1++;
+                }
+                if(point[i+1][j]!<-1000){
+                    sum+=point[i+1][j];
+                    cnt1++;
+                }
+                if(point[i+1][j+1]!<-1000){
+                    sum+=point[i+1][j+1];
+                    cnt1++;
+                }
+                //平均出したところまで
+                avg=sum/cnt1;
+                sum=0;
+                cnt1=0;
+                //配列aを使ってavgより大きいかどうかを決め、cnt1,cnt2に各々入れていく
+                if(point[i-1][j-1]<avg) cnt1++;
+                else cnt2++;
+                if(point[i-1][j]<avg) cnt1++;
+                else cnt2++;
+                if(point[i-1][j+1]<avg) cnt1++;
+                else cnt2++;
+                if(point[i][j-1]<avg) cnt1++;
+                else cnt2++;
+                if(point[i][j+1]<avg) cnt1++;
+                else cnt2++;
+                if(point[i+1][j-1]<avg) cnt1++;
+                else cnt2++;
+                if(point[i+1][j]<avg) cnt1++;
+                else cnt2++;
+                if(point[i+1][j+1]<avg) cnt1++;
+                else cnt2++;
+            }
+        }
+    }
+}
 
 int main(void){
     if((fpIn1 = fopen("map1.dat","r")) == NULL){
@@ -77,7 +141,6 @@ int main(void){
     }
     
     inputPoints();
-    printf("");
     initialize();
     draw();
     //errorDraw(errorPoints,k);
