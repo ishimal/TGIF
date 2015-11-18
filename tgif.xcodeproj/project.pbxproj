@@ -7,9 +7,16 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		0A31671F1BF1B9AC000642BF /* 概要.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "概要.txt"; sourceTree = "<group>"; };
+		0A3167331BF1D2EF000642BF /* map1.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = map1.dat; sourceTree = "<group>"; };
+		0A3167341BF1D2EF000642BF /* map2.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = map2.dat; sourceTree = "<group>"; };
+		0A3167351BF1D2EF000642BF /* map3.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = map3.dat; sourceTree = "<group>"; };
+		0A3167361BF1D2EF000642BF /* map4.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = map4.dat; sourceTree = "<group>"; };
+		0A3167371BF1D2EF000642BF /* map5.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = map5.dat; sourceTree = "<group>"; };
+		0A3167381BF1D2EF000642BF /* map6.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = map6.dat; sourceTree = "<group>"; };
+		0A3167391BF1D2EF000642BF /* map7.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = map7.dat; sourceTree = "<group>"; };
+		0A31673A1BF1D2EF000642BF /* map8.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = map8.dat; sourceTree = "<group>"; };
 		0A3299311BD6091D00C9527A /* test2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = test2.c; sourceTree = "<group>"; };
-		0AF995A91BDF51C400ACF48E /* 53394610_dsm_1m.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = 53394610_dsm_1m.dat; sourceTree = "<group>"; };
-		0AF995AA1BDF51C400ACF48E /* 53394640_dsm_1m.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = 53394640_dsm_1m.dat; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -17,8 +24,15 @@
 			isa = PBXGroup;
 			children = (
 				0A3299311BD6091D00C9527A /* test2.c */,
-				0AF995A91BDF51C400ACF48E /* 53394610_dsm_1m.dat */,
-				0AF995AA1BDF51C400ACF48E /* 53394640_dsm_1m.dat */,
+				0A31671F1BF1B9AC000642BF /* 概要.txt */,
+				0A3167331BF1D2EF000642BF /* map1.dat */,
+				0A3167341BF1D2EF000642BF /* map2.dat */,
+				0A3167351BF1D2EF000642BF /* map3.dat */,
+				0A3167361BF1D2EF000642BF /* map4.dat */,
+				0A3167371BF1D2EF000642BF /* map5.dat */,
+				0A3167381BF1D2EF000642BF /* map6.dat */,
+				0A3167391BF1D2EF000642BF /* map7.dat */,
+				0A31673A1BF1D2EF000642BF /* map8.dat */,
 			);
 			sourceTree = "<group>";
 		};
