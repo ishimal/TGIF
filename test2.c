@@ -5,7 +5,7 @@ int n = 2000, m = 2000; //nがx,mがyの配列の最大
 FILE *fpIn1,*fpIn2,*fpOut;
 double point[2000][2000];
 int map1MinX=0,map1MinY=0;
-int borderArray[2000][2000] //(境界なら1,そうでなければ0,点データがない場合は-1を格納する配列でグローバルにおく)
+int borderArray[2000][2000]; //(境界なら1,そうでなければ0,点データがない場合は-1を格納する配列でグローバルにおく)
 
 typedef struct
 {
@@ -52,72 +52,67 @@ void inputPoints(void){
     }
 }
 
-void errorRestore(void){
-	int i, j, s, t, cnt1, cnt2, sum = 0, a[9] = {-100};
-    double avg;
-    for(j=0;j<n;j++){
-        for(i=0;i<m;i++){
-            if(point[i][j]<-1000){
+void errorRestore(void) {
+	int i, j, s, t, cnt1, cnt2, sum = 0, a[9] = { -100 };
+	double avg;
+	for (j = 0; j < n; j++) {
+		for (i = 0; i < m; i++) {
+			if (point[i][j]<-1000) {
 				sum = 0;
 				cnt1 = 0;
 				cnt2 = 0;
-                if(point[i-1][j-1]!<-1000){/*エラー点で弾かれなかったやつは配列aに入れる*/
+				if (point[i - 1][j - 1]>-1000) {/*エラー点で弾かれなかったやつは配列aに入れる*/
 					sum += point[i - 1][j - 1];
-                    cnt1++;
+					cnt1++;
 					a[cnt1] = point[i - 1][j - 1];
-                }
-				
-                if(point[i-1][j]!<-1000){
-                    sum+=point[i-1][j];
-                    cnt1++;
+				}
+				if (point[i - 1][j]!<-1000) {
+					sum += point[i - 1][j];
+					cnt1++;
 					a[cnt1] = point[i - 1][j];
+				}
+
+			}
+		}
+	}
+}
+void judgeBorder(){
+    int alpha = 10;
+    int i,j,k,x,y,res;
+    double centerZ = 0.0,diff = 0.0,abusDiff = 0.0;
+    
+    for(j=0;j<m;j++){
+        for(i=0;i<n;i++){
+            borderArray[i][j] = -1;
                 }
-                if(point[i-1][j+1]!<-1000){
-                    sum+=point[i-1][j+1];
-                    cnt1++;
+    for (j=0; j<m; j++) {
+        for (i=0; i<n; i++) {
+            if (point[i][j] <= -100) {
+                continue;
                 }
-                if(point[i][j-1]!<-1000){
-                    sum+=point[i][j-1];
-                    cnt1++;
+            res = 0;
+            centerZ = point[i][j];
+            x=i;
+            y=j+1;
+            for(k=0;k<4;k++){
+                if(x<0 || y<0){
+                    continue;
+                }else if(point[x][y] <= -100){
+                    continue;
                 }
-                if(point[i][j+1]!<-1000){
-                    sum+=point[i][j+1];
-                    cnt1++;
+                diff = point[x][y] - centerZ;
+                abusDiff = (diff >= 0) ? diff:(-1*diff);
+                if (alpha < abusDiff) {
+                    res = 1;
                 }
-                if(point[i+1][j-1]!<-1000){
-                    sum+=point[i+1][j-1];
-                    cnt1++;
+                if (k==0 || k == 2) {
+                    x--;
+                    y--;
+                }else if(k==1){
+                    x += 2;
                 }
-                if(point[i+1][j]!<-1000){
-                    sum+=point[i+1][j];
-                    cnt1++;
-                }
-                if(point[i+1][j+1]!<-1000){
-                    sum+=point[i+1][j+1];
-                    cnt1++;
-                }
-                //平均出したところまで
-                avg=sum/cnt1;
-                sum=0;
-                cnt1=0;
-                //配列aを使ってavgより大きいかどうかを決め、cnt1,cnt2に各々入れていく
-                if(point[i-1][j-1]<avg) cnt1++;
-                else cnt2++;
-                if(point[i-1][j]<avg) cnt1++;
-                else cnt2++;
-                if(point[i-1][j+1]<avg) cnt1++;
-                else cnt2++;
-                if(point[i][j-1]<avg) cnt1++;
-                else cnt2++;
-                if(point[i][j+1]<avg) cnt1++;
-                else cnt2++;
-                if(point[i+1][j-1]<avg) cnt1++;
-                else cnt2++;
-                if(point[i+1][j]<avg) cnt1++;
-                else cnt2++;
-                if(point[i+1][j+1]<avg) cnt1++;
-                else cnt2++;
             }
+            borderArray[i][j] = res;
         }
     }
 }
@@ -141,7 +136,7 @@ int main(void){
     inputPoints();
     initialize();
     draw();
-    //errorDraw(errorPoints,k);
+    judgeBorder();
     
     fclose(fpIn1);
     fclose(fpIn2);
