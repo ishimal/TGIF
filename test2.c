@@ -31,7 +31,7 @@ void draw(){
 	}
 	fprintf(fpOut, "]\n\t\t}\n\t}\n}\n");
 }
-=======
+
 void inputPoints(void){
     int ret,x,y,i,j;
     double tmpx=0,tmpy=0,z=0;
@@ -53,72 +53,129 @@ void inputPoints(void){
 }
 
 void errorRestore(void) {
-	int i, j, s, t, cnt1, cnt2, sum = 0, a[9] = { -100 };
-	double avg;
+	int i, j, x, y, cnt1, cnt2, k;
+	double avg, sum = 0, a[8] = { -100 }, b[8] = { -100 };
 	for (j = 0; j < n; j++) {
 		for (i = 0; i < m; i++) {
-			if (point[i][j]<-1000) {
+			if (point[i][j] < -100) {
 				sum = 0;
+				x = i - 1;
+				y = j - 1;
 				cnt1 = 0;
 				cnt2 = 0;
-				if (point[i - 1][j - 1]>-1000) {/*エラー点で弾かれなかったやつは配列aに入れる*/
-					sum += point[i - 1][j - 1];
+				for (k = 0; k < 8; k++) {
+					if (x < 0 || y < 0) {
+						continue;
+					}
+					else if (point[x][y] <= -100) {
+						continue;
+					}
+					sum += point[x][y];
 					cnt1++;
-					a[cnt1] = point[i - 1][j - 1];
+					if (k < 2) x++;
+					else if (k == 2 || k == 4) {
+						x -= 2;
+						y++;
+					}
+					else if (k == 3) x += 2;
+					else x++;
 				}
-				if (point[i - 1][j]!<-1000) {
-					sum += point[i - 1][j];
-					cnt1++;
-					a[cnt1] = point[i - 1][j];
+				avg = sum / cnt1;
+				cnt1 = 0;
+				sum = 0;
+				x = i - 1;
+				y = j - 1;
+				for (k = 0; k < 8; k++) {
+					if (x < 0 || y < 0) {
+						continue;
+					}
+					else if (point[x][y] <= -100) {
+						continue;
+					}
+					if (point[x][y] > avg) {
+						cnt1++;
+						a[k] = point[x][y];
+					}
+					else {
+						cnt2++;
+						b[k] = point[x][y];
+					}
+					if (k < 2) x++;
+					else if (k == 2 || k == 4) {
+						x -= 2;
+						y++;
+					}
+					else if (k == 3) x += 2;
+					else x++;
 				}
-
+				if (cnt1 > cnt2) {
+					for (k = 0; k < 8; k++) {
+						if (a[k] == -100) {
+							continue;
+						}
+						sum += a[k];
+					}
+					point[x][y] = sum / cnt1;
+				}
+				else {
+					for (k = 0; k < 8; k++) {
+						if (b[k] == -100) {
+							continue;
+						}
+						sum += b[k];
+					}
+					point[i][j] = sum / cnt2;
+				}
 			}
 		}
 	}
 }
-void judgeBorder(){
-    int alpha = 10;
-    int i,j,k,x,y,res;
-    double centerZ = 0.0,diff = 0.0,abusDiff = 0.0;
-    
-    for(j=0;j<m;j++){
-        for(i=0;i<n;i++){
-            borderArray[i][j] = -1;
-                }
-    for (j=0; j<m; j++) {
-        for (i=0; i<n; i++) {
-            if (point[i][j] <= -100) {
-                continue;
-                }
-            res = 0;
-            centerZ = point[i][j];
-            x=i;
-            y=j+1;
-            for(k=0;k<4;k++){
-                if(x<0 || y<0){
-                    continue;
-                }else if(point[x][y] <= -100){
-                    continue;
-                }
-                diff = point[x][y] - centerZ;
-                abusDiff = (diff >= 0) ? diff:(-1*diff);
-                if (alpha < abusDiff) {
-                    res = 1;
-                }
-                if (k==0 || k == 2) {
-                    x--;
-                    y--;
-                }else if(k==1){
-                    x += 2;
-                }
-            }
-            borderArray[i][j] = res;
-        }
-    }
-}
->>>>>>> b92c2056171151e1be22aa2edb363b452d9bc328
 
-int main(void){
+void judgeBorder() {
+	int alpha = 10;
+	int i, j, k, x, y, res;
+	double centerZ = 0.0, diff = 0.0, abusDiff = 0.0;
+
+	for (j = 0; j < m; j++) {
+		for (i = 0; i < n; i++) {
+			borderArray[i][j] = -1;
+		}
+		for (j = 0; j < m; j++) {
+			for (i = 0; i < n; i++) {
+				if (point[i][j] <= -100) {
+					continue;
+				}
+				res = 0;
+				centerZ = point[i][j];
+				x = i;
+				y = j + 1;
+				for (k = 0; k < 4; k++) {
+					if (x < 0 || y < 0) {
+						continue;
+					}
+					else if (point[x][y] <= -100) {
+						continue;
+					}
+					diff = point[x][y] - centerZ;
+					abusDiff = (diff >= 0) ? diff : (-1 * diff);
+					if (alpha < abusDiff) {
+						res = 1;
+					}
+					if (k == 0 || k == 2) {
+						x--;
+						y--;
+					}
+					else if (k == 1) {
+						x += 2;
+					}
+				}
+				borderArray[i][j] = res;
+			}
+		}
+	}
+}
+
+	int main(void) {
     if((fpIn1 = fopen("map1.dat","r")) == NULL){
         printf("fpIn1 open error!!\n");
         exit(-1);
@@ -136,6 +193,7 @@ int main(void){
     inputPoints();
     initialize();
     draw();
+	errorRestore();
     judgeBorder();
     
     fclose(fpIn1);
